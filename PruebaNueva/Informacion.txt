@@ -1,1 +1,0 @@
-Esta version parece totalmente funcional en el aspecto de entidades bien mapeadas y repositorios
