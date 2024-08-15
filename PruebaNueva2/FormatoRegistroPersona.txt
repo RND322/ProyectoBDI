@@ -1,0 +1,30 @@
+Formato Json registro persona
+
+{
+    "dni": "YOPXXX3",
+    "usuarioC": "userE3",
+    "primerNombre": "Amadeo",
+    "segundoNombre": "Mario",
+    "primerApellido": "Martinez",
+    "segundoApellido": "Garcia",
+    "correo": "maa.perez@example.com",
+    "estadoCivil": {
+        "idEstadoCivil": 1
+    },
+    "genero": {
+        "idGenero": 1
+    },
+    "direcciones": [
+        {
+                "ciudad": {
+                "idCiudad": 4
+            }
+        }
+    ],
+    "telefonos": [
+        {
+            "telefonoHogar": "123456789",
+            "telefonoCelular": "987654321"
+        }
+    ]
+}
