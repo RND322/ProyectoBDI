@@ -56,4 +56,7 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<Telefono> telefonos;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<DatosLaborales> datosLaborales;
+
 }

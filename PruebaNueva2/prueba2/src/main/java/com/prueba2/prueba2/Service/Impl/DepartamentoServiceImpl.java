@@ -20,28 +20,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
     @Autowired
     private DatabaseConnecction databaseConnection;
-/* 
-    @Override
-    public List<Departamento> getAllDepartamentos(String username, String password) throws SQLException {
-        List<Departamento> departamentos = new ArrayList<>();
-        
-        try (Connection connection = databaseConnection.getConnection(username, password)) {
-            String query = "SELECT * FROM principal.departamento";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                ResultSet resultSet = preparedStatement.executeQuery();
-                
-                while (resultSet.next()) {
-                    Departamento departamento = new Departamento();
-                    departamento.setIdDepto(resultSet.getLong("iddepto"));
-                    departamento.setNombreDepto(resultSet.getString("nombredepto"));
-                    
-                    departamentos.add(departamento);
-                }
-            }
-        }
-        return departamentos;
-    }
-*/
 
 @Override
     public List<Departamento> getAllDepartamentos(String username, String password) throws SQLException {

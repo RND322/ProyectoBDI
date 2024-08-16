@@ -28,3 +28,36 @@ Formato Json registro persona
         }
     ]
 }
+
+
+
+
+
+Formato Registro Solicitud
+
+{
+  "cliente": {
+    "dni": "YOPXXX3",
+    "datosLaborales": [
+      {
+        "cargo": "COO",
+        "ingresoMensual": 3000.00,
+        "nombreLugarTrabajo": "Empresa XYZ",
+        "fechaIngresoTrabajo": "2024-01-01"
+      }
+    ]
+  },
+  "tipoProducto": {
+    "idTipoProducto": 1
+  },
+  "referenciasPersonales": [
+    {
+      "primerNombre": "Joel",
+      "primerApellido": "Sabias",
+      "telResi": "123456789",
+      "telCel": "987654321",
+      "relacionSolicitante": "Amigo"
+    }
+  ]
+}
+ * NO  SE MANDA EL EMPLEADO NI EL ESTADO DE SOLICITUD PORQUE EN EL BACK SE MANDA DE UN SOLO A 3 EL ESTADO Y EL EMPLEADO DE ID 2

@@ -3,6 +3,8 @@ package com.prueba2.prueba2.Entities;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -27,6 +29,7 @@ public class TipoProducto {
     private BigDecimal limiteCredito;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idmarca")
     private Marca marca;
 

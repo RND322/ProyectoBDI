@@ -49,7 +49,7 @@ public void registerCliente(Cliente cliente, String username, String password) t
         }
 
         // Registrar la dirección
-        for (Direccion direccion : cliente.getDirecciones()) {
+        for (Direccion direccion : cliente.getDirecciones()) {  
             String direccionQuery = "INSERT INTO central.direccion (idciudad, dni) VALUES (?, ?)";
             try (PreparedStatement direccionStatement = connection.prepareStatement(direccionQuery)) {
                 if (direccion.getCiudad() != null) {
@@ -74,6 +74,5 @@ public void registerCliente(Cliente cliente, String username, String password) t
         }
     }
 }
-}
 
- 
+}
