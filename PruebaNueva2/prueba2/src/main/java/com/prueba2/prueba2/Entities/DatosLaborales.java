@@ -4,6 +4,8 @@ package com.prueba2.prueba2.Entities;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +39,7 @@ public class DatosLaborales {
     private Date fechaIngresoTrabajo;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "dni")
     private Cliente cliente;
 

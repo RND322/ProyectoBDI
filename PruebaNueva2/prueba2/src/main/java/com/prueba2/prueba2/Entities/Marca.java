@@ -1,12 +1,9 @@
 //Agregada el 13/8/24
 package com.prueba2.prueba2.Entities;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -21,8 +18,8 @@ public class Marca {
 
     @Column(name = "nombremarca", length = 50)
     private String nombreMarca;
-
+/* 
     @OneToMany(mappedBy = "marca")
     private List<TipoProducto> tipoProductos;
-
+*/
 }

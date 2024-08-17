@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.prueba2.prueba2.Entities.Solicitud;
 
 @Repository
-public interface SolicitudRepository extends JpaRepository<Solicitud, String> {
+public interface SolicitudRepository extends JpaRepository<Solicitud, Long> {
     
 }
