@@ -1,6 +1,8 @@
 //Agregada el 13/8/24
 package com.prueba2.prueba2.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class Direccion {
     private Ciudad ciudad;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "dni")
     private Cliente cliente;
 

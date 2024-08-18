@@ -55,39 +55,39 @@ public String logout(HttpSession session) {
     return "Logout successful";
 }
 
-  @PostMapping("/logincliente")
+@PostMapping("/logincliente")
     public Cliente logincliente(@RequestParam String username, @RequestParam String password, HttpSession session) {
-        String query = "SELECT c.dni, c.primernombre, c.segundonombre, c.primerapellido, c.segundoapellido, " +
-                       "c.correo, ec.descripestadocivil, g.descripgenero " +
-                       "FROM central.cliente c " +
-                       "LEFT JOIN central.estadocivil ec ON c.idestadocivil = ec.idestadocivil " +
-                       "LEFT JOIN central.genero g ON c.idgenero = g.idgenero " +
-                       "WHERE c.usuarioc = ?";
-        
-        String queryDirecciones = "SELECT d.iddireccion, d.idciudad, d.dni, c.nombreciudad " +
+        String queryCliente = "SELECT c.dni, c.primernombre, c.segundonombre, c.primerapellido, c.segundoapellido, " +
+                              "c.correo, ec.descripestadocivil, g.descripgenero " +
+                              "FROM central.cliente c " +
+                              "LEFT JOIN central.estadocivil ec ON c.idestadocivil = ec.idestadocivil " +
+                              "LEFT JOIN central.genero g ON c.idgenero = g.idgenero " +
+                              "WHERE c.usuarioc = ?";
+    
+        String queryDirecciones = "SELECT d.iddireccion, d.idciudad, c.nombreciudad " +
                                   "FROM central.direccion d " +
                                   "LEFT JOIN central.ciudad c ON d.idciudad = c.idciudad " +
                                   "WHERE d.dni = ?";
-        
+    
         String queryTelefonos = "SELECT t.idtelefono, t.telefonohogar, t.telefonocelular " +
                                 "FROM central.telefono t " +
                                 "WHERE t.dni = ?";
-
+    
         Cliente cliente = null;
-
+        String dniCliente = null;
+    
         try (Connection connection = databaseConnection.getConnection(username, password)) {
             session.setAttribute("username", username);
             session.setAttribute("password", password);
-            // Obtener datos del cliente
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
+    
+            // Obtener el DNI del cliente
+            try (PreparedStatement statement = connection.prepareStatement(queryCliente)) {
                 statement.setString(1, username);
-                //System.out.println("Ejecutando consulta para el usuario: " + username);
-
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
                         cliente = new Cliente();
-                        cliente.setDni(resultSet.getString("dni"));
-                        //cliente.setUsuarioC(resultSet.getString("usuarioc"));
+                        dniCliente = resultSet.getString("dni");
+                        cliente.setDni(dniCliente);
                         cliente.setPrimerNombre(resultSet.getString("primernombre"));
                         cliente.setSegundoNombre(resultSet.getString("segundonombre"));
                         cliente.setPrimerApellido(resultSet.getString("primerapellido"));
@@ -106,32 +106,32 @@ public String logout(HttpSession session) {
                     }
                 }
             }
-
-            // Obtener direcciones
+    
+            // Obtener direcciones utilizando el DNI del cliente
             try (PreparedStatement statement = connection.prepareStatement(queryDirecciones)) {
-                statement.setString(1, username);
+                statement.setString(1, dniCliente);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<Direccion> direcciones = new ArrayList<>();
                     while (resultSet.next()) {
                         Direccion direccion = new Direccion();
                         direccion.setIdDireccion(resultSet.getLong("iddireccion"));
-
-                        // Configura la ciudad
+    
+                        // Configurar la ciudad
                         Ciudad ciudad = new Ciudad();
                         ciudad.setIdCiudad(resultSet.getLong("idciudad"));
                         ciudad.setNombreCiudad(resultSet.getString("nombreciudad"));
-
                         direccion.setCiudad(ciudad);
+    
                         direccion.setCliente(cliente);
                         direcciones.add(direccion);
                     }
                     cliente.setDirecciones(direcciones);
                 }
             }
-
-            // Obtener teléfonos
+    
+            // Obtener teléfonos utilizando el DNI del cliente
             try (PreparedStatement statement = connection.prepareStatement(queryTelefonos)) {
-                statement.setString(1, username);
+                statement.setString(1, dniCliente);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<Telefono> telefonos = new ArrayList<>();
                     while (resultSet.next()) {
@@ -145,15 +145,15 @@ public String logout(HttpSession session) {
                     cliente.setTelefonos(telefonos);
                 }
             }
-
+    
         } catch (SQLException e) {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al procesar la solicitud");
         }
-
+    
         return cliente;
-    }
-
+}
+        
 @PostMapping("/loginempleado")
 public ResponseEntity<?> loginEmpleado(@RequestParam String username, @RequestParam String password, HttpSession session) {
     // Consulta SQL para obtener los datos del empleado
