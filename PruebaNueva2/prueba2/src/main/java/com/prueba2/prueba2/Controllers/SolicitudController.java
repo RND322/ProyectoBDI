@@ -121,5 +121,24 @@ public ResponseEntity<?> aceptarSolicitud(@PathVariable Long idSolicitud, HttpSe
     }
 }
 
+@GetMapping("/solicitudescliente")
+public ResponseEntity<List<Solicitud>> obtenerSolicitudesCliente(HttpSession session) {
+    String username = (String) session.getAttribute("username");
+    String password = (String) session.getAttribute("password");
+
+    if (username == null || password == null) {
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    try {
+        List<Solicitud> solicitudes = solicitudService.obtenerSolicitudesCliente(username, password);
+        return new ResponseEntity<>(solicitudes, HttpStatus.OK);
+    } catch (SQLException e) {
+        e.printStackTrace(); // Log the error
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+}
+
 
 }

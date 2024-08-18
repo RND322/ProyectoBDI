@@ -11,6 +11,7 @@ public interface  SolicitudService {
     public List<Solicitud> getAllSolicitudes(String username, String password) throws SQLException;
     public Solicitud getSolicitudById(String username, String password, long idSolicitud) throws SQLException;
     public void denegarSolicitud(String username, String password, long idSolicitud) throws SQLException;
-
     public void aceptarSolicitud(String username, String password, long idSolicitud) throws SQLException;
+
+    public List<Solicitud> obtenerSolicitudesCliente(String username, String password) throws SQLException;
 }

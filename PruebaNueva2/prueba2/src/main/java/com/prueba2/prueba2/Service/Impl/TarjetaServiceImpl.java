@@ -23,9 +23,9 @@ public class TarjetaServiceImpl implements TarjetaService {
     private DatabaseConnecction databaseConnection;
 
     @Override
-public List<Tarjeta> obtenerTarjetasCliente(String username, String password) throws SQLException {
+    public List<Tarjeta> obtenerTarjetasCliente(String username, String password) throws SQLException {
     String queryDniCliente = "SELECT dni FROM central.cliente WHERE usuarioc = ?";
-    String queryTarjetas = "SELECT t.idtarjeta, t.fechaapertura, t.fechavencimiento, t.saldoactual, " +
+    String queryTarjetas = "SELECT t.idtarjeta, t.fechaapertura, t.fechavencimiento, t.fechacorte, t.pin, t.saldoactual, " +
                            "t.saldodisponible, t.pagominimo, t.tasainteresanual, tp.nombreproducto, " +
                            "tp.limitecredito, m.nombremarca " +
                            "FROM central.tarjeta t " +
@@ -59,6 +59,8 @@ public List<Tarjeta> obtenerTarjetasCliente(String username, String password) th
                     tarjeta.setIdTarjeta(resultSetTarjetas.getLong("idtarjeta"));
                     tarjeta.setFechaApertura(resultSetTarjetas.getDate("fechaapertura"));
                     tarjeta.setFechaVencimiento(resultSetTarjetas.getDate("fechavencimiento"));
+                    tarjeta.setFechaCorte(resultSetTarjetas.getDate("fechacorte"));
+                    tarjeta.setPin(resultSetTarjetas.getInt("pin"));
                     tarjeta.setSaldoActual(resultSetTarjetas.getBigDecimal("saldoactual"));
                     tarjeta.setSaldoDisponible(resultSetTarjetas.getBigDecimal("saldodisponible"));
                     tarjeta.setPagoMinimo(resultSetTarjetas.getBigDecimal("pagominimo"));
@@ -84,4 +86,5 @@ public List<Tarjeta> obtenerTarjetasCliente(String username, String password) th
         return tarjetas;
     }
 }
+
 }

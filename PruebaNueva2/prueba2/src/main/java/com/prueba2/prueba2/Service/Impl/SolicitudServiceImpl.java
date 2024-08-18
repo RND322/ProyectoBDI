@@ -28,7 +28,7 @@ import com.prueba2.prueba2.Service.SolicitudService;
 @Service
 public class SolicitudServiceImpl implements SolicitudService {
     
-     @Autowired
+    @Autowired
     private DatabaseConnecction databaseConnection;
 
 @Override
@@ -357,6 +357,53 @@ private java.sql.Date calculatePaymentDueDate() {
     return new java.sql.Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 1000); // Ejemplo simplificado
 }
  
+@Override
+public List<Solicitud> obtenerSolicitudesCliente(String username, String password) throws SQLException {
+    String queryDniCliente = "SELECT dni FROM central.cliente WHERE usuarioc = ?";
+    String querySolicitudes = "SELECT s.idsolicitud, s.dni, s.idtipoproducto, s.idestadosoli, es.descripestadosoli " +
+                              "FROM central.solicitud s " +
+                              "LEFT JOIN central.estadosolicitud es ON s.idestadosoli = es.idestadosoli " +
+                              "WHERE s.dni = ?";
+
+    List<Solicitud> solicitudes = new ArrayList<>();
+
+    try (Connection connection = databaseConnection.getConnection(username, password)) {
+        String dniCliente = null;
+
+        // Obtener el DNI del cliente basado en el usuario
+        try (PreparedStatement statementDni = connection.prepareStatement(queryDniCliente)) {
+            statementDni.setString(1, username);
+            try (ResultSet resultSetDni = statementDni.executeQuery()) {
+                if (resultSetDni.next()) {
+                    dniCliente = resultSetDni.getString("dni");
+                } else {
+                    throw new SQLException("Cliente no encontrado");
+                }
+            }
+        }
+
+        // Obtener las solicitudes del cliente
+        try (PreparedStatement statementSolicitudes = connection.prepareStatement(querySolicitudes)) {
+            statementSolicitudes.setString(1, dniCliente);
+            try (ResultSet resultSetSolicitudes = statementSolicitudes.executeQuery()) {
+                while (resultSetSolicitudes.next()) {
+                    Solicitud solicitud = new Solicitud();
+                    solicitud.setIdSolicitud(resultSetSolicitudes.getLong("idsolicitud"));
+
+                    // Crear y asignar el EstadoSolicitud a la solicitud
+                    EstadoSolicitud estadoSolicitud = new EstadoSolicitud();
+                    estadoSolicitud.setIdEstadoSoli(resultSetSolicitudes.getLong("idestadosoli"));
+                    estadoSolicitud.setDescripEstadoSoli(resultSetSolicitudes.getString("descripestadosoli"));
+                    solicitud.setEstadoSolicitud(estadoSolicitud);
+
+                    solicitudes.add(solicitud);
+                }
+            }
+        }
+
+        return solicitudes;
+    }
+}
 
 
 }
