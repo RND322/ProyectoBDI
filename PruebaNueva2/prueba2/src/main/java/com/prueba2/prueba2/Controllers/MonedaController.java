@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.prueba2.prueba2.Entities.Departamento;
-import com.prueba2.prueba2.Service.DepartamentoService;
+import com.prueba2.prueba2.Entities.Moneda;
+import com.prueba2.prueba2.Service.MonedaService;
 
 import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api")
-public class DepartamentoController {
+public class MonedaController {
     
     @Autowired
-    private DepartamentoService departamentoService;
+    private MonedaService monedaService;
 
-    @GetMapping("/departamentos")
-    public List<Departamento> getAllDepartamentos(HttpSession session) {
+    @GetMapping("/monedas")
+    public List<Moneda> getAllMonedas(HttpSession session) {
         String username = (String) session.getAttribute("username");
         String password = (String) session.getAttribute("password");
 
@@ -31,11 +31,11 @@ public class DepartamentoController {
         }
 
         try {
-            return departamentoService.getAllDepartamentos(username, password);
+            return monedaService.obtenerTodasLasMonedas(username, password);
         } catch (SQLException e) {
-            e.printStackTrace(); // Log 
+            e.printStackTrace(); // Log the error
         }
-        return Collections.emptyList(); // Devuelve una lista vacía en caso de error
+        return Collections.emptyList(); // Retorna lista vacia en caso de error.
     }
-    
+
 }

@@ -33,7 +33,7 @@ public class ClienteController {
             clienteService.registerCliente(cliente, username, password);
             return "Cliente registrado exitosamente";
         } catch (SQLException e) {
-            e.printStackTrace(); // Log the error
+            e.printStackTrace(); // Log 
             return "Error al registrar el cliente";
         }
     }

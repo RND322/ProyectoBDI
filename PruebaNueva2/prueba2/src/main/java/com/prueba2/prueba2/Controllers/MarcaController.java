@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.prueba2.prueba2.Entities.Departamento;
-import com.prueba2.prueba2.Service.DepartamentoService;
+import com.prueba2.prueba2.Entities.Marca;
+import com.prueba2.prueba2.Service.MarcaService;
 
 import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api")
-public class DepartamentoController {
+public class MarcaController {
     
     @Autowired
-    private DepartamentoService departamentoService;
+    private MarcaService marcaService;
 
-    @GetMapping("/departamentos")
-    public List<Departamento> getAllDepartamentos(HttpSession session) {
+    @GetMapping("/marcas")
+    public List<Marca> getAllMarcas(HttpSession session) {
         String username = (String) session.getAttribute("username");
         String password = (String) session.getAttribute("password");
 
@@ -31,11 +31,10 @@ public class DepartamentoController {
         }
 
         try {
-            return departamentoService.getAllDepartamentos(username, password);
+            return marcaService.obtenerTodasLasMarcas(username, password);
         } catch (SQLException e) {
             e.printStackTrace(); // Log 
         }
-        return Collections.emptyList(); // Devuelve una lista vacía en caso de error
+        return Collections.emptyList(); // Retorna una cadena vacia en caso de error.
     }
-    
 }
