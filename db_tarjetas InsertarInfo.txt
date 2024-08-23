@@ -1,0 +1,192 @@
+--ALTER TABLE ciudad
+--DROP CONSTRAINT idMunicipioFK;
+
+--ALTER TABLE ciudad
+--DROP COLUMN idMunicipio;
+
+--DROP TABLE municipio;
+
+--ALTER TABLE ciudad
+--ADD idDepto NUMBER;
+
+--ALTER TABLE ciudad
+--ADD CONSTRAINT idDeptoFK FOREIGN KEY (idDepto) REFERENCES departamento(idDepto);
+
+
+INSERT INTO genero (idGenero, descripGenero) VALUES (1, 'Masculino');
+INSERT INTO genero (idGenero, descripGenero) VALUES (2, 'Femenino');
+
+INSERT INTO estadoCivil (idEstadoCivil, descripEstadoCivil) VALUES (1, 'Soltero');
+INSERT INTO estadoCivil (idEstadoCivil, descripEstadoCivil) VALUES (2, 'Casado');
+INSERT INTO estadoCivil (idEstadoCivil, descripEstadoCivil) VALUES (3, 'Divorciado');
+INSERT INTO estadoCivil (idEstadoCivil, descripEstadoCivil) VALUES (4, 'Viudo');
+INSERT INTO estadoCivil (idEstadoCivil, descripEstadoCivil) VALUES (5, 'Separado');
+
+INSERT INTO departamento (idDepto, nombreDepto) VALUES (1, 'Francisco Morazán');
+INSERT INTO departamento (idDepto, nombreDepto) VALUES (2, 'Atlantida');
+INSERT INTO departamento (idDepto, nombreDepto) VALUES (3, 'Islas de la Bahía');
+INSERT INTO departamento (idDepto, nombreDepto) VALUES (4, 'Cortes');
+INSERT INTO departamento (idDepto, nombreDepto) VALUES (5, 'Choluteca');
+
+
+INSERT INTO ciudad (idCiudad, nombreCiudad, idDepto) VALUES (1, 'Tegucigalpa', 1);
+INSERT INTO ciudad (idCiudad, nombreCiudad, idDepto) VALUES (2, 'Comayaguela', 1);
+INSERT INTO ciudad (idCiudad, nombreCiudad, idDepto) VALUES (3, 'La Ceiba', 2);
+INSERT INTO ciudad (idCiudad, nombreCiudad, idDepto) VALUES (4, 'Roatan', 3);
+INSERT INTO ciudad (idCiudad, nombreCiudad, idDepto) VALUES (5, 'San Pedro Sula', 4);
+INSERT INTO ciudad (idCiudad, nombreCiudad, idDepto) VALUES (6, 'Choluteca', 5);
+
+INSERT INTO sucursal (idSucursal, nombreSucursal) VALUES (1, 'Sucursal Tegucigalpa');
+INSERT INTO sucursal (idSucursal, nombreSucursal) VALUES (2, 'Sucursal Comayaguela');
+INSERT INTO sucursal (idSucursal, nombreSucursal) VALUES (3, 'Sucursal La Ceiba');
+INSERT INTO sucursal (idSucursal, nombreSucursal) VALUES (4, 'Sucursal Roatan');
+INSERT INTO sucursal (idSucursal, nombreSucursal) VALUES (5, 'Sucursal San Pedro Sula');
+INSERT INTO sucursal (idSucursal, nombreSucursal) VALUES (6, 'Sucursal Choluteca');
+
+INSERT INTO empleado (idEmpleado, primerNombre, primerApellido, cargo, idSucursal) VALUES ('E001', 'Juan', 'Pérez', 'Gerente', 1);
+INSERT INTO empleado (idEmpleado, primerNombre, primerApellido, cargo, idSucursal) VALUES ('E002', 'Pablo', 'Acosta', 'Gerente', 2);
+INSERT INTO empleado (idEmpleado, primerNombre, primerApellido, cargo, idSucursal) VALUES ('E003', 'Ana', 'Mendez', 'Gerente', 3);
+INSERT INTO empleado (idEmpleado, primerNombre, primerApellido, cargo, idSucursal) VALUES ('E004', 'Karina', 'Flores', 'Gerente', 4);
+INSERT INTO empleado (idEmpleado, primerNombre, primerApellido, cargo, idSucursal) VALUES ('E005', 'Jose', 'Peña', 'Gerente', 5);
+INSERT INTO empleado (idEmpleado, primerNombre, primerApellido, cargo, idSucursal) VALUES ('E006', 'Sandra', 'Lopez', 'Gerente', 6);
+
+INSERT INTO estadoSolicitud (idEstadoSoli, descripEstadoSoli) VALUES (1, 'Denegado');
+INSERT INTO estadoSolicitud (idEstadoSoli, descripEstadoSoli) VALUES (2, 'Aceptado');
+INSERT INTO estadoSolicitud (idEstadoSoli, descripEstadoSoli) VALUES (3, 'Sin Atender');
+
+INSERT INTO estadoTarjeta (idEstadoTarjeta, tipoEstado) VALUES (1, 'Activa');
+INSERT INTO estadoTarjeta (idEstadoTarjeta, tipoEstado) VALUES (2, 'Inactiva');
+
+--INSERT INTO marca (idMarca, nombreMarca) VALUES (3, 'American Express');
+--INSERT INTO marca (idMarca, nombreMarca) VALUES (2, 'Mastercard');
+INSERT INTO marca (idMarca, nombreMarca) VALUES (1, 'Visa');
+
+INSERT INTO moneda (idMoneda, nombreMoneda) VALUES (1, 'Dólares');
+INSERT INTO moneda (idMoneda, nombreMoneda) VALUES (2, 'Lempiras');
+
+
+INSERT INTO cliente (dni, primerNombre, segundoNombre, primerApellido, segundoApellido, correo, idEstadoCivil, idGenero) 
+VALUES ('0801-1980-10010', 'Carlos', 'Andrés', 'Pérez', 'Gómez', 'carlos.perez@example.com', 1, 1);
+INSERT INTO cliente (dni, primerNombre, segundoNombre, primerApellido, segundoApellido, correo, idEstadoCivil, idGenero) 
+VALUES ('0802-1975-10011', 'Ana', 'María', 'Rodríguez', 'López', 'ana.rodriguez@example.com', 2, 2);
+INSERT INTO cliente (dni, primerNombre, segundoNombre, primerApellido, segundoApellido, correo, idEstadoCivil, idGenero) 
+VALUES ('0803-1998-10012', 'Luis', 'Fernando', 'Martínez', 'Díaz', 'luis.martinez@example.com', 1, 1);
+
+INSERT INTO direccion (idDireccion, idCiudad, dni) 
+VALUES (1, 1, '0801-1980-10010');  
+INSERT INTO direccion (idDireccion, idCiudad, dni) 
+VALUES (2, 2, '0802-1975-10011');
+INSERT INTO direccion (idDireccion, idCiudad, dni) 
+VALUES (3, 5, '0803-1998-10012'); 
+
+INSERT INTO datosLaborales (idDatosLaborales, cargo, ingresoMensual, nombreLugarTrabajo, fechaIngresoTrabajo, dni) 
+VALUES (1, 'Gerente', 50000.00, 'SANAA', TO_DATE('2015-03-01', 'YYYY-MM-DD'), '0801-1980-10010');
+INSERT INTO datosLaborales (idDatosLaborales, cargo, ingresoMensual, nombreLugarTrabajo, fechaIngresoTrabajo, dni) 
+VALUES (2, 'Asistente', 30000.00, 'ENEE', TO_DATE('2018-07-15', 'YYYY-MM-DD'), '0802-1975-10011');
+INSERT INTO datosLaborales (idDatosLaborales, cargo, ingresoMensual, nombreLugarTrabajo, fechaIngresoTrabajo, dni) 
+VALUES (3, 'Analista', 40000.00, 'Hondutel', TO_DATE('2017-09-10', 'YYYY-MM-DD'), '0803-1998-10012');
+
+
+INSERT INTO telefono (idTelefono, telefonoHogar, telefonoCelular, dni) 
+VALUES ('T001', '2222-3333', '9999-8888', '0801-1980-10010');
+INSERT INTO telefono (idTelefono, telefonoHogar, telefonoCelular, dni) 
+VALUES ('T002', '2233-4444', '9888-7777', '0802-1975-10011');
+INSERT INTO telefono (idTelefono, telefonoHogar, telefonoCelular, dni) 
+VALUES ('T003', '2244-5555', '9777-6666', '0803-1998-10012');
+
+
+INSERT INTO tipoProducto (idTipoProducto, nombreProducto, limiteCredito, idMarca) 
+VALUES (1, 'Clásica', 5000.00, 1);  
+INSERT INTO tipoProducto (idTipoProducto, nombreProducto, limiteCredito, idMarca) 
+VALUES (2, 'Oro', 10000.00, 1);  
+INSERT INTO tipoProducto (idTipoProducto, nombreProducto, limiteCredito, idMarca) 
+VALUES (3, 'Platino', 20000.00, 1);
+
+
+INSERT INTO solicitud (idSolicitud, dni, idEmpleado, idTipoProducto, idEstadoSoli) 
+VALUES ('S001', '0801-1980-10010', 'E001', 1, 2); 
+INSERT INTO solicitud (idSolicitud, dni, idEmpleado, idTipoProducto, idEstadoSoli) 
+VALUES ('S002', '0802-1975-10011', 'E002', 3, 2);
+INSERT INTO solicitud (idSolicitud, dni, idEmpleado, idTipoProducto, idEstadoSoli) 
+VALUES ('S003', '0803-1998-10012', 'E002', 1, 2);
+
+INSERT INTO referenciasPersonales (idRefPersonales, primerNombre, primerApellido, telResi, telCel, relacionSolicitante, idSolicitud) 
+VALUES (1, 'Laura', 'García', '5555-1234', '9999-1111', 'Amiga', 'S001');
+INSERT INTO referenciasPersonales (idRefPersonales, primerNombre, primerApellido, telResi, telCel, relacionSolicitante, idSolicitud) 
+VALUES (2, 'Juan', 'Martínez', '5555-5678', '9999-2222', 'Hermano', 'S002');
+INSERT INTO referenciasPersonales (idRefPersonales, primerNombre, primerApellido, telResi, telCel, relacionSolicitante, idSolicitud) 
+VALUES (3, 'Ana', 'Mora', '5555-8765', '9999-3333', 'Tia', 'S003');
+
+INSERT INTO tarjeta (idTarjeta, fechaApertura, fechaVencimiento, fechaCorte, pin, saldoActual, saldoDisponible, pagoMinimo, fechaLimitePago, tasaInteresAnual, idTipoProducto, dni, idEstadoTarjeta) 
+VALUES (1, TO_DATE('2024-01-01', 'YYYY-MM-DD'), TO_DATE('2026-01-01', 'YYYY-MM-DD'), TO_DATE('2024-05-01', 'YYYY-MM-DD'), 1234, 5000.00, 5000.00, 100.00, TO_DATE('2024-02-15', 'YYYY-MM-DD'), 15.00, 1, '0801-1980-10010', 1); 
+INSERT INTO tarjeta (idTarjeta, fechaApertura, fechaVencimiento, fechaCorte, pin, saldoActual, saldoDisponible, pagoMinimo, fechaLimitePago, tasaInteresAnual, idTipoProducto, dni, idEstadoTarjeta) 
+VALUES (2, TO_DATE('2024-02-01', 'YYYY-MM-DD'), TO_DATE('2026-02-01', 'YYYY-MM-DD'), TO_DATE('2024-06-01', 'YYYY-MM-DD'), 5678, 8000.00, 8000.00, 150.00, TO_DATE('2024-03-15', 'YYYY-MM-DD'), 18.00, 3, '0802-1975-10011', 1);
+INSERT INTO tarjeta (idTarjeta, fechaApertura, fechaVencimiento, fechaCorte, pin, saldoActual, saldoDisponible, pagoMinimo, fechaLimitePago, tasaInteresAnual, idTipoProducto, dni, idEstadoTarjeta) 
+VALUES (3, TO_DATE('2024-03-01', 'YYYY-MM-DD'), TO_DATE('2026-03-01', 'YYYY-MM-DD'), TO_DATE('2024-07-01', 'YYYY-MM-DD'), 9101, 5000.00, 5000.00, 100.00, TO_DATE('2024-04-15', 'YYYY-MM-DD'), 15.00, 1, '0803-1998-10012', 1); 
+
+
+INSERT INTO mora (idMora, saldoVencido, tasaInteresMora, idTarjeta) 
+VALUES (1, 0.00, 0.00, 1);
+INSERT INTO mora (idMora, saldoVencido, tasaInteresMora, idTarjeta) 
+VALUES (2, 0.00, 0.00, 2);
+INSERT INTO mora (idMora, saldoVencido, tasaInteresMora, idTarjeta) 
+VALUES (3, 0.00, 0.00, 3);
+
+/*INSERT INTO registroCuota (idRegistroCuota, idMora, idTarjeta, numeroCuota) 
+VALUES (1, 1, 1, 1);  
+INSERT INTO registroCuota (idRegistroCuota, idMora, idTarjeta, numeroCuota) 
+VALUES (2, 2, 2, 1);  
+INSERT INTO registroCuota (idRegistroCuota, idMora, idTarjeta, numeroCuota) 
+VALUES (3, 3, 3, 1);*/
+
+-- Transacciones para la tarjeta con idTarjeta = 1
+INSERT INTO transaccion (idTransac, noReferencia, fechaTransaccion, concepto, monto, idMoneda)
+VALUES (1, 'REF001', TO_DATE('2024-08-01', 'YYYY-MM-DD'), 'Compra en tienda', 100.00, 1);
+INSERT INTO transaccion (idTransac, noReferencia, fechaTransaccion, concepto, monto, idMoneda)
+VALUES (2, 'REF002', TO_DATE('2024-08-05', 'YYYY-MM-DD'), 'Pago de servicio', 50.00, 1);
+INSERT INTO transaccion (idTransac, noReferencia, fechaTransaccion, concepto, monto, idMoneda)
+VALUES (3, 'REF003', TO_DATE('2024-08-10', 'YYYY-MM-DD'), 'Compra en línea', 200.00, 1);
+-- Transacciones para la tarjeta con idTarjeta = 2
+INSERT INTO transaccion (idTransac, noReferencia, fechaTransaccion, concepto, monto, idMoneda)
+VALUES (4, 'REF004', TO_DATE('2024-08-02', 'YYYY-MM-DD'), 'Compra en supermercado', 150.00, 2);
+INSERT INTO transaccion (idTransac, noReferencia, fechaTransaccion, concepto, monto, idMoneda)
+VALUES (5, 'REF005', TO_DATE('2024-08-06', 'YYYY-MM-DD'), 'Pago de teléfono', 30.00, 2);
+INSERT INTO transaccion (idTransac, noReferencia, fechaTransaccion, concepto, monto, idMoneda)
+VALUES (6, 'REF006', TO_DATE('2024-08-12', 'YYYY-MM-DD'), 'Suscripción en línea', 75.00, 2);
+-- Transacciones para la tarjeta con idTarjeta = 3
+INSERT INTO transaccion (idTransac, noReferencia, fechaTransaccion, concepto, monto, idMoneda)
+VALUES (7, 'REF007', TO_DATE('2024-08-03', 'YYYY-MM-DD'), 'Compra de ropa', 120.00, 1);
+INSERT INTO transaccion (idTransac, noReferencia, fechaTransaccion, concepto, monto, idMoneda)
+VALUES (8, 'REF008', TO_DATE('2024-08-07', 'YYYY-MM-DD'), 'Pago de suscripción', 40.00, 1);
+INSERT INTO transaccion (idTransac, noReferencia, fechaTransaccion, concepto, monto, idMoneda)
+VALUES (9, 'REF009', TO_DATE('2024-08-15', 'YYYY-MM-DD'), 'Gastos de viaje', 180.00, 1);
+
+-- Asignar transacciones a la tarjeta 1
+INSERT INTO historialTransaccion (idHistorialTransaccion, idTarjeta, idTransac)
+VALUES (1, 1, 1);  -- Tarjeta 1, Transacción 1
+INSERT INTO historialTransaccion (idHistorialTransaccion, idTarjeta, idTransac)
+VALUES (2, 1, 2);  -- Tarjeta 1, Transacción 2
+INSERT INTO historialTransaccion (idHistorialTransaccion, idTarjeta, idTransac)
+VALUES (3, 1, 3);  -- Tarjeta 1, Transacción 3
+-- Asignar transacciones a la tarjeta 2
+INSERT INTO historialTransaccion (idHistorialTransaccion, idTarjeta, idTransac)
+VALUES (4, 2, 4);  -- Tarjeta 2, Transacción 4
+INSERT INTO historialTransaccion (idHistorialTransaccion, idTarjeta, idTransac)
+VALUES (5, 2, 5);  -- Tarjeta 2, Transacción 5
+INSERT INTO historialTransaccion (idHistorialTransaccion, idTarjeta, idTransac)
+VALUES (6, 2, 6);  -- Tarjeta 2, Transacción 6
+-- Asignar transacciones a la tarjeta 3
+INSERT INTO historialTransaccion (idHistorialTransaccion, idTarjeta, idTransac)
+VALUES (7, 3, 7);  -- Tarjeta 3, Transacción 7
+INSERT INTO historialTransaccion (idHistorialTransaccion, idTarjeta, idTransac)
+VALUES (8, 3, 8);  -- Tarjeta 3, Transacción 8
+INSERT INTO historialTransaccion (idHistorialTransaccion, idTarjeta, idTransac)
+VALUES (9, 3, 9);  -- Tarjeta 3, Transacción 9
+
+
+INSERT INTO estadoCuenta (idEstadoCuenta, saldoAnterior, compras, abonos, interesesAdeudados, estadoMora, idTarjeta)
+VALUES (1, 500.00, 150.00, 50.00, 5.00, 0, 1);  -- Tarjeta 1
+INSERT INTO estadoCuenta (idEstadoCuenta, saldoAnterior, compras, abonos, interesesAdeudados, estadoMora, idTarjeta)
+VALUES (2, 800.00, 200.00, 100.00, 8.00, 0, 2);  -- Tarjeta 2
+INSERT INTO estadoCuenta (idEstadoCuenta, saldoAnterior, compras, abonos, interesesAdeudados, estadoMora, idTarjeta)
+VALUES (3, 1200.00, 300.00, 150.00, 12.00, 1, 3);  -- Tarjeta 3
